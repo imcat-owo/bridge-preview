@@ -68,13 +68,13 @@
   /* ===== 聊天流 ===== */
   .stream{
     position:relative; z-index:1; max-width:430px; margin:0 auto; height:100dvh;
-    overflow-y:auto; padding:60px 16px 118px; scrollbar-width:none;
+    overflow-y:auto; padding:60px 10px 118px; scrollbar-width:none;
     display:flex; flex-direction:column;
   }
   .stream::-webkit-scrollbar{ display:none; }
   .stamp{ align-self:center; font-size:10px; letter-spacing:.18em; color:var(--ink-soft);
     margin:2px 0 16px; text-shadow:0 1px 6px rgba(255,255,255,.8); }
-  .row{ display:flex; gap:8px; margin-bottom:14px; align-items:flex-start; }
+  .row{ display:flex; gap:7px; margin-bottom:14px; align-items:flex-start; }
   .row.me{ flex-direction:row-reverse; }
   .avatar{ width:32px; height:32px; flex:none; }
   .avatar img{ width:32px; height:32px; display:block; }
@@ -84,20 +84,38 @@
   }
   .row.me .bubble{
     border-radius:18px; border-bottom-right-radius:6px;
-    background:rgba(240,236,229,.66);
-    -webkit-backdrop-filter:blur(16px) saturate(1.2);
-    backdrop-filter:blur(16px) saturate(1.2);
-    border:1px solid rgba(255,255,255,.6);
-    box-shadow:0 10px 28px rgba(90,84,70,.10), inset 0 1px 0 rgba(255,255,255,.65);
+    background:linear-gradient(135deg, rgba(244,239,232,.50), rgba(238,232,222,.32));
+    -webkit-backdrop-filter:blur(7px) saturate(1.35);
+    backdrop-filter:blur(7px) saturate(1.35);
+    border:1px solid rgba(255,255,255,.78);
+    box-shadow:0 8px 22px rgba(90,84,70,.08), inset 0 1px 0 rgba(255,255,255,.88), inset 0 -10px 16px rgba(255,255,255,.10);
+  }
+  /* 气泡：清透玻璃——低模糊＋适配壁纸的暖丝底色，不要磨砂感 */
+  .bubble.glass{
+    background:linear-gradient(135deg, rgba(255,255,255,.36), rgba(255,255,255,.14) 55%, rgba(255,255,255,.24));
+    -webkit-backdrop-filter:blur(7px) saturate(1.45);
+    backdrop-filter:blur(7px) saturate(1.45);
+    border:1px solid rgba(255,255,255,.8);
+    box-shadow:0 8px 22px rgba(90,84,70,.08), inset 0 1px 0 rgba(255,255,255,.9), inset 0 -10px 16px rgba(255,255,255,.10);
+  }
+  @media (prefers-reduced-transparency: reduce){
+    .bubble.glass{ background:rgba(255,255,255,.92); -webkit-backdrop-filter:none; backdrop-filter:none; }
   }
   @media (prefers-reduced-transparency: reduce){
     .row.me .bubble{ background:rgba(240,236,229,.94); -webkit-backdrop-filter:none; backdrop-filter:none; }
   }
   /* ===== 卡片（长方形 · 真实用途 · 饰件＋排版出设计感） ===== */
   .card{
-    width:272px; max-width:calc(100vw - 96px); border-radius:20px;
+    width:272px; max-width:calc(100vw - 68px); border-radius:20px;
     padding:16px 16px 13px; position:relative;
     animation:rise .45s ease both;
+    background-image:linear-gradient(160deg, rgba(255,255,255,.32), rgba(255,255,255,0) 46%);
+    box-shadow:0 14px 34px rgba(96,88,74,.10), inset 0 1px 0 rgba(255,255,255,.7);
+  }
+  /* 缝线内框：像手工缝在丝绸上的边，精修的少女感细节 */
+  .card::before{
+    content:""; position:absolute; inset:6px; border-radius:15px; pointer-events:none;
+    border:1px dashed rgba(150,138,120,.30);
   }
   .card.crowned{ margin-top:30px; }   /* 给骑顶垂饰让位 */
   .pendant{
@@ -105,10 +123,10 @@
     height:60px; width:auto; pointer-events:none;
     filter:drop-shadow(0 4px 8px rgba(90,84,70,.12));
   }
-  .kicker{ font-size:10px; letter-spacing:.24em; color:var(--ink-soft); font-weight:500; }
+  .kicker{ font-size:10px; letter-spacing:.26em; color:#9A8B82; font-weight:500; }
   .kicker.center{ text-align:center; }
   .card h3{ font-family:var(--serif); font-size:16px; font-weight:600;
-    letter-spacing:.06em; color:var(--ink-title); }
+    letter-spacing:.09em; color:var(--ink-title); }
   .card h3.center{ text-align:center; }
   .divider{ display:block; width:196px; max-width:86%; height:auto; margin:9px auto 4px; }
   .stat{ display:flex; justify-content:space-between; align-items:baseline;
@@ -151,8 +169,8 @@
   .opt .o-s{ font-size:11px; color:var(--ink-soft); margin-top:1px; letter-spacing:.02em; }
   .opt .o-arrow{ font-family:var(--serif); color:var(--ink-soft); font-size:14px; flex:none; }
   .opt.on{
-    background:rgba(240,236,229,.78);
-    box-shadow:inset 0 0 0 1px rgba(120,112,96,.38), inset 0 1px 0 rgba(255,255,255,.7);
+    background:rgba(248,238,234,.82);
+    box-shadow:inset 0 0 0 1px rgba(176,148,138,.42), inset 0 1px 0 rgba(255,255,255,.7);
   }
   /* 思考中三点 */
   .dots{ display:inline-flex; gap:4px; padding:4px 2px; }
@@ -246,6 +264,7 @@
         <span class="kicker">THINKING · 深度思考</span>
         <span class="think-state">已思考 12 秒</span>
       </div>
+      <img class="divider sm" data-img="card-divider" alt="">
       <div class="points">
         <p>先确认今年国庆的放假与免费安排</p>
         <p>待办里房租今晚到期，优先级最高</p>
