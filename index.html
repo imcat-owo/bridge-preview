@@ -1,83 +1,170 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>补课汇总 · 只剩 3 条要你拍板</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>嘟嘟 App 空壳（静态 mockup，只有画面没有功能）</title>
+<!--
+  嘟嘟 App 主界面空壳 v1 —— 静态展示，无功能。
+  设计口径：穹妹灰调手绘风 / 双头像气泡一左一右 / 小气泡小字号精致风 /
+  可爱不油腻文案 / 全局无 emoji / SVG 圆润 Q 版。
+  头像为 SVG 占位，正式美术（穹妹头像/小恶魔皮肤）后续替换。
+-->
 <style>
-  :root{ --ink:#2b2430; --sub:#6f6475; --line:#e7dde8; --card:#fff; --bg:#faf7fa; --hot:#b3541e; }
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.65;font-size:15px}
-  .wrap{max-width:760px;margin:0 auto;padding:20px 16px 60px}
-  h1{font-size:22px;margin:8px 0 4px}
-  .meta{color:var(--sub);font-size:13px;margin-bottom:18px}
-  h2{font-size:17px;margin:28px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--line)}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0}
-  .card h3{margin:0 0 6px;font-size:15px}
-  .card p{margin:4px 0}
-  .hot{background:#fdf3e7;border:1px solid #f0d9bd;border-radius:12px;padding:12px 14px;margin:10px 0}
-  .hot h3{margin:0 0 6px;font-size:15px;color:var(--hot)}
-  .hot p{margin:4px 0}
-  .dim{color:var(--sub);font-size:13.5px}
-  ul{margin:6px 0;padding-left:20px}
-  li{margin:3px 0}
+:root{
+  --bg:#FAF9F6; --card:#FFFFFF; --ink:#3D3A33; --ink-soft:#6E695C;
+  --muted:#8A8578; --faint:#B9B2A2; --line:#E7E2D5; --line-soft:#EFECE4;
+  --accent:#D97757; --accent-deep:#C15F3C; --bubble-ai:#FFFFFF; --bubble-me:#EFE9DC;
+  --tab-bg:#FFFFFF;
+}
+*{box-sizing:border-box}
+body{margin:0;background:#EDEAE3;display:flex;justify-content:center;align-items:flex-start;
+  padding:28px 12px;font-family:-apple-system,'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif}
+.cap{text-align:center;font-size:13px;color:var(--muted);margin:0 0 10px}
+.phone{width:340px;background:var(--bg);border-radius:40px;border:1px solid var(--line);
+  overflow:hidden;box-shadow:0 12px 34px rgba(61,58,51,.12);display:flex;flex-direction:column;height:720px}
+.status{display:flex;justify-content:space-between;padding:14px 24px 4px;font-size:12px;color:var(--ink-soft)}
+.head{display:flex;align-items:center;gap:10px;padding:8px 16px 10px;border-bottom:1px solid var(--line-soft)}
+.head .name{font-size:16px;font-weight:700;color:var(--ink)}
+.head .sub{font-size:11px;color:var(--muted);margin-top:1px}
+.head .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#7FB069;margin-right:4px}
+.head .sp{flex:1}
+.iconbtn{width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:var(--card);
+  display:flex;align-items:center;justify-content:center;color:var(--ink-soft)}
+.body{flex:1;overflow:hidden;padding:14px 12px;display:flex;flex-direction:column;gap:12px}
+.day{align-self:center;font-size:11px;color:var(--faint);background:var(--line-soft);
+  border-radius:999px;padding:3px 12px}
+.msg{display:flex;gap:8px;align-items:flex-end;max-width:100%}
+.msg.me{justify-content:flex-end}
+.av{width:32px;height:32px;flex:none;border-radius:50%;overflow:hidden;border:1px solid var(--line);background:#fff}
+.bubble{font-size:13.5px;line-height:1.65;color:var(--ink);padding:9px 13px;max-width:72%;
+  box-shadow:0 1px 4px rgba(61,58,51,.05)}
+.msg.ai .bubble{background:var(--bubble-ai);border:1px solid var(--line-soft);border-radius:4px 16px 16px 16px}
+.msg.me .bubble{background:var(--bubble-me);border-radius:16px 16px 4px 16px}
+/* thinking 小按钮 */
+.think{align-self:flex-start;display:inline-flex;align-items:center;gap:7px;background:var(--card);
+  border:1px solid var(--line);border-radius:999px;padding:7px 13px;font-size:12.5px;color:var(--ink-soft);
+  box-shadow:0 2px 10px rgba(61,58,51,.06)}
+.think .ast{color:var(--accent-deep);font-size:14px;display:inline-block;animation:spin 6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.think .shimmer{background:linear-gradient(100deg,var(--faint) 30%,var(--ink-soft) 50%,var(--faint) 70%);
+  background-size:200% 100%;-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;animation:shim 2.4s linear infinite}
+@keyframes shim{to{background-position:-200% 0}}
+.think .chev{color:var(--faint);font-size:12px}
+/* 语音气泡 */
+.voice{display:flex;align-items:center;gap:9px;background:var(--card);border:1px solid var(--line-soft);
+  border-radius:4px 16px 16px 16px;padding:9px 13px;max-width:72%;box-shadow:0 1px 4px rgba(61,58,51,.05)}
+.voice .bars{display:flex;align-items:center;gap:2.5px;height:18px}
+.voice .bars i{width:3px;border-radius:2px;background:var(--faint)}
+.voice .dur{font-size:11px;color:var(--muted)}
+/* 底部输入 */
+.composer{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--bg)}
+.pill{flex:1;display:flex;align-items:center;background:var(--card);border:1px solid var(--line);
+  border-radius:999px;padding:9px 14px;font-size:13.5px;color:var(--faint)}
+.send{width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;flex:none;
+  display:flex;align-items:center;justify-content:center}
+/* tab bar */
+.tabs{display:flex;background:var(--tab-bg);border-top:1px solid var(--line-soft);padding:8px 0 18px}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10.5px;color:var(--faint)}
+.tab.on{color:var(--accent-deep)}
+.note{max-width:340px;margin:14px auto 0;font-size:12px;color:var(--muted);line-height:1.8;text-align:center}
 </style>
 </head>
 <body>
-<div class="wrap">
-<h1>补课汇总 · 改版</h1>
-<div class="meta">2026-10-02 改版。按你定的新口径重排：要你拍板的只留最要紧 3 条在最前面；其余全部降到最后备查，不催你。差距的记法也改了——只记「不做会出问题」和「你明确要过」的，「人家有我们没有」不再算必须补。</div>
-
-<h2>要你拍板的，只剩这 3 条</h2>
-
-<div class="hot"><h3>1. 备份把外观图也带上（头像、壁纸、主题图）</h3>
-<p>做了：换机或重装、从备份恢复后，样子原样回来。不做：恢复完头像壁纸全没了，要一张张重设。<b>我建议：做</b>——纯技术活，不碰界面。</p></div>
-
-<div class="hot"><h3>2. 自动快照（App 自己定期存一份档）</h3>
-<p>做了：数据哪天坏了、误删了，能退回最近一份存档。不做：只能靠你想起来手动备份的那一次，中间的全丢。<b>我建议：只做快照这半</b>，导入别家 App 那半先放着，没人催。</p></div>
-
-<div class="hot"><h3>3. 系统 NLP 工具标一句「中文别用」</h3>
-<p>背景：苹果自带的文本分析对中文不准。做了：AI 不会再拿它的错结果当真发你。不做：它会一本正经地给你编的答案。<b>我建议：选省事版</b>——标一行字，不花额度；换成大模型做那版先不做。</p></div>
-
-<p class="dim">这 3 条你有空再看，一次说完就行，不回也不耽误下面的活。</p>
-
-<h2>不用你管、第二步我直接做的</h2>
-<div class="card">
-<p>这批是补课里标了「建议修」和纯技术自修的，不涉及功能取舍和界面，我逐条做、逐条验证，做不完善的保持现状并在汇报里写清卡在哪：</p>
-<ul>
-<li>工具确认关卡：会动数据的工具（改设置、设备操作、敲命令这类）执行前先停下来等确认，防 AI 自作主张。</li>
-<li>问用户工具：AI 干活中途能正经向你提问（单选/多选/自填），不用它自己瞎猜。</li>
-<li>联网搜索工具：给 AI 一个成品搜索，引用能点开看来源。先接哪几家我按常用稳妥的定，定了在汇报里写明。</li>
-<li>识图 OCR 的缓存和阶梯：同一张图不重复花钱认，先免费的、再缓存、还不够才升级。</li>
-<li>浏览器顺手快照路径修正、苹果工具三小件（报错翻人话等）、mybox 等三小件、地图缺省自动定位。</li>
-<li>中继防重复转发、App 冷启动自动连回中继、设置页两开关显示对齐。</li>
-<li>提示词瘦身：先量一遍我们自己现在的总量再决定砍哪，不从零补（补课查明我们已经有同款机制，GAP 那条账记错了）。</li>
-</ul>
+<div>
+<p class="cap">嘟嘟 App 空壳 v1 —— 只有画面，没有功能</p>
+<div class="phone">
+  <div class="status"><span>9:41</span><span>5G</span></div>
+  <div class="head">
+    <span class="av" aria-label="嘟嘟头像">
+      <svg viewBox="0 0 32 32" width="32" height="32">
+        <circle cx="16" cy="16" r="15" fill="#EFE9DC"/>
+        <path d="M4 18c0-8 5-13 12-13s12 5 12 13c0 2-1 3-2 3-2-4-5-6-10-6s-8 2-10 6c-1 0-2-1-2-3z" fill="#8A8578"/>
+        <circle cx="16" cy="18" r="8.5" fill="#F7EFE6"/>
+        <circle cx="12.8" cy="17.5" r="1.4" fill="#3D3A33"/>
+        <circle cx="19.2" cy="17.5" r="1.4" fill="#3D3A33"/>
+        <path d="M13.8 21.5c1.4 1.2 3 1.2 4.4 0" stroke="#3D3A33" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <ellipse cx="10.8" cy="20" rx="1.6" ry="1" fill="#E8B4A0" opacity=".7"/>
+        <ellipse cx="21.2" cy="20" rx="1.6" ry="1" fill="#E8B4A0" opacity=".7"/>
+      </svg>
+    </span>
+    <span><div class="name">嘟嘟</div><div class="sub"><span class="dot"></span>在线，陪你呢</div></span>
+    <span class="sp"></span>
+    <span class="iconbtn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-6.5 8-6.5s8 2.5 8 6.5"/></svg></span>
+  </div>
+  <div class="body">
+    <span class="day">今天</span>
+    <div class="msg ai">
+      <span class="av"><svg viewBox="0 0 32 32" width="32" height="32">
+        <circle cx="16" cy="16" r="15" fill="#EFE9DC"/>
+        <path d="M4 18c0-8 5-13 12-13s12 5 12 13c0 2-1 3-2 3-2-4-5-6-10-6s-8 2-10 6c-1 0-2-1-2-3z" fill="#8A8578"/>
+        <circle cx="16" cy="18" r="8.5" fill="#F7EFE6"/>
+        <circle cx="12.8" cy="17.5" r="1.4" fill="#3D3A33"/>
+        <circle cx="19.2" cy="17.5" r="1.4" fill="#3D3A33"/>
+        <path d="M13.8 21.5c1.4 1.2 3 1.2 4.4 0" stroke="#3D3A33" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <ellipse cx="10.8" cy="20" rx="1.6" ry="1" fill="#E8B4A0" opacity=".7"/>
+        <ellipse cx="21.2" cy="20" rx="1.6" ry="1" fill="#E8B4A0" opacity=".7"/>
+      </svg></span>
+      <span class="bubble">早呀，今天想先做哪件小事？</span>
+    </div>
+    <div class="msg me">
+      <span class="bubble">帮我看看这周有哪些安排</span>
+      <span class="av"><svg viewBox="0 0 32 32" width="32" height="32">
+        <circle cx="16" cy="16" r="15" fill="#E3E8F0"/>
+        <circle cx="16" cy="13" r="5" fill="#F7EFE6"/>
+        <path d="M8 26c1-5 4-7 8-7s7 2 8 7" fill="#B9C4D6"/>
+        <circle cx="14" cy="12.5" r="1.1" fill="#3D3A33"/>
+        <circle cx="18" cy="12.5" r="1.1" fill="#3D3A33"/>
+        <path d="M14.5 15.5c1 0.8 2 0.8 3 0" stroke="#3D3A33" stroke-width="1" fill="none" stroke-linecap="round"/>
+      </svg></span>
+    </div>
+    <div class="think"><span class="ast">✳</span><span class="shimmer">想想…</span><span class="chev">看看在想什么 ›</span></div>
+    <div class="msg ai">
+      <span class="av"><svg viewBox="0 0 32 32" width="32" height="32">
+        <circle cx="16" cy="16" r="15" fill="#EFE9DC"/>
+        <path d="M4 18c0-8 5-13 12-13s12 5 12 13c0 2-1 3-2 3-2-4-5-6-10-6s-8 2-10 6c-1 0-2-1-2-3z" fill="#8A8578"/>
+        <circle cx="16" cy="18" r="8.5" fill="#F7EFE6"/>
+        <circle cx="12.8" cy="17.5" r="1.4" fill="#3D3A33"/>
+        <circle cx="19.2" cy="17.5" r="1.4" fill="#3D3A33"/>
+        <path d="M13.8 21.5c1.4 1.2 3 1.2 4.4 0" stroke="#3D3A33" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <ellipse cx="10.8" cy="20" rx="1.6" ry="1" fill="#E8B4A0" opacity=".7"/>
+        <ellipse cx="21.2" cy="20" rx="1.6" ry="1" fill="#E8B4A0" opacity=".7"/>
+      </svg></span>
+      <span class="bubble">这周三件：周三晚上听歌房有你攒的歌单，周五是我们的 100 天，周日下午空着，要不要排点好玩的？</span>
+    </div>
+    <div class="msg ai">
+      <span class="av"><svg viewBox="0 0 32 32" width="32" height="32">
+        <circle cx="16" cy="16" r="15" fill="#EFE9DC"/>
+        <path d="M4 18c0-8 5-13 12-13s12 5 12 13c0 2-1 3-2 3-2-4-5-6-10-6s-8 2-10 6c-1 0-2-1-2-3z" fill="#8A8578"/>
+        <circle cx="16" cy="18" r="8.5" fill="#F7EFE6"/>
+        <circle cx="12.8" cy="17.5" r="1.4" fill="#3D3A33"/>
+        <circle cx="19.2" cy="17.5" r="1.4" fill="#3D3A33"/>
+        <path d="M13.8 21.5c1.4 1.2 3 1.2 4.4 0" stroke="#3D3A33" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <ellipse cx="10.8" cy="20" rx="1.6" ry="1" fill="#E8B4A0" opacity=".7"/>
+        <ellipse cx="21.2" cy="20" rx="1.6" ry="1" fill="#E8B4A0" opacity=".7"/>
+      </svg></span>
+      <span class="voice">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="#C15F3C"><path d="M8 5v14l11-7z"/></svg>
+        <span class="bars"><i style="height:6px"></i><i style="height:12px"></i><i style="height:8px"></i><i style="height:15px"></i><i style="height:9px"></i><i style="height:13px"></i><i style="height:7px"></i><i style="height:11px"></i></span>
+        <span class="dur">12''</span>
+      </span>
+    </div>
+  </div>
+  <div class="composer">
+    <span class="iconbtn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+    <span class="pill">跟嘟嘟说点什么…</span>
+    <span class="iconbtn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span>
+    <span class="send"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span>
+  </div>
+  <div class="tabs">
+    <span class="tab on"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l2-3a8 8 0 1 1 15-5z"/></svg>聊天</span>
+    <span class="tab"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>空间</span>
+    <span class="tab"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>听歌</span>
+    <span class="tab"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-6.5 8-6.5s8 2.5 8 6.5"/></svg>我的</span>
+  </div>
 </div>
-
-<h2>补课查到的其他结论（一句带过）</h2>
-<div class="card">
-<ul>
-<li>音色选择器 Kelivo 也没有，没处借——真要做只能自研对厂商接口，不急。</li>
-<li>三家新语音供应商轻重：阶跃星辰最轻、Fish 中等、通义千问音频最重（要新养一条长连接）。</li>
-<li>上游仓库是发布镜像，人格分仓、角色卡群聊在公开仓都没有现成的；要做都是自研大活。</li>
-<li>文档两处被推翻：Kelivo 其实有聊天发图的裁剪；它备份其实带图（就是上面第 1 条）。</li>
-<li>没查到的如实记着：Kelivo 的 ffmpeg 构建配置、我们提示词总量的实测数（第二步先量）。</li>
-</ul>
-</div>
-
-<h2>备查（不催你，想起来再翻）</h2>
-<div class="card dim">
-<p>下面这些都是「人家有、我们没有」或纯手感取舍，按新口径不算欠账，只存档。你哪天想要哪个，点名我就做：</p>
-<ul>
-<li>API：查余额、多 key 轮换（中转 key 断粮时有用，现能手动切供应商兜底）、预置供应商名单、分享导入（它带明文 key，真做要改口径）、按供应商代理、自定义请求头/体、温度等手感参数（现在写死 0.7，没出过事）、费用估算、重试可配、缓存开关。</li>
-<li>识图图片：PDF 发给模型、视觉组标记呈现、图片质量档位和裁剪入口、头像选即存统一、选图来源加文件/现拍/网址、供应商图标可换。</li>
-<li>语音：补三家供应商、MiniMax 发音词典、MiMo 克隆选文件入口、播放胶囊跳句快进、点气泡原地播、录音当语音发。</li>
-<li>功能：记忆精细化（会碰你的记忆文件格式）、定时任务 iOS 降级版、消息多版本/分支/导出、主题分享、流程图渲染、会话批量删、按助手分人格、角色卡群聊、界面小件（翻译/快捷短语）。</li>
-</ul>
-<p>49 篇逐条笔记（他们怎么做、能借什么、借不了什么）都在我电脑里存着，你点名哪条我把那篇细的发你。</p>
-</div>
-
+<p class="note">双头像一左一右 · 小气泡小字号 · thinking 小按钮 · 微信式语音气泡<br>头像为 SVG 占位，正式美术后续替换</p>
 </div>
 </body>
 </html>
